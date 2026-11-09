@@ -1,0 +1,358 @@
+/* ==========================================================
+   Taller de ciclos en JavaScript · hoja de estilos compartida
+   Úsala en todas las páginas con:
+   <link rel="stylesheet" href="css/estilos.css">
+   ========================================================== */
+
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap");
+
+:root {
+  --papel: #f2f5fa;
+  --superficie: #ffffff;
+  --tinta: #1b2540;
+  --tinta-suave: #55607a;
+  --linea: #d6dde9;
+  --primario: #3b4cca;
+  --primario-oscuro: #2c3aa3;
+  --resalte: #ffd84d;
+  --ok: #7be0ab;
+  --error: #ff9b8f;
+
+  --consola: #161d33;
+  --consola-linea: #2b3558;
+
+  --fuente-titulos: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --fuente-texto: "Figtree", "Segoe UI", system-ui, sans-serif;
+  --fuente-codigo: "JetBrains Mono", ui-monospace, Consolas, monospace;
+
+  --radio: 14px;
+  --radio-chico: 8px;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 4rem;
+  font-family: var(--fuente-texto);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--tinta);
+  background-color: var(--papel);
+  /* papel cuadriculado muy tenue */
+  background-image:
+    linear-gradient(var(--linea) 1px, transparent 1px),
+    linear-gradient(90deg, var(--linea) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+  background-attachment: fixed;
+}
+
+body::before {
+  /* velo para que la cuadrícula no compita con el contenido */
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: rgba(242, 245, 250, 0.82);
+}
+
+h1, h2 {
+  font-family: var(--fuente-titulos);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); font-weight: 800; }
+h2 { font-size: 1.35rem; font-weight: 700; margin-bottom: 0.75rem; }
+
+p { margin: 0 0 0.85rem; max-width: 68ch; }
+
+code {
+  font-family: var(--fuente-codigo);
+  font-size: 0.9em;
+  background: #e6eaf6;
+  color: var(--primario-oscuro);
+  padding: 0.12em 0.4em;
+  border-radius: 5px;
+}
+
+a { color: var(--primario); text-underline-offset: 3px; }
+a:hover { color: var(--primario-oscuro); }
+
+:focus-visible {
+  outline: 3px solid var(--primario);
+  outline-offset: 2px;
+}
+
+/* ---------- Encabezado ---------- */
+header { margin-bottom: 2rem; }
+
+header > a {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--tinta);
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: 999px;
+  transition: border-color 0.15s, color 0.15s;
+}
+header > a:hover { border-color: var(--primario); color: var(--primario); }
+
+header h1 {
+  /* subrayado tipo marcador bajo el título */
+  display: inline;
+  background-image: linear-gradient(transparent 62%, var(--resalte) 62%, var(--resalte) 92%, transparent 92%);
+  padding: 0 0.15em;
+  margin-left: -0.15em;
+}
+
+header p { margin: 0.9rem 0 0; color: var(--tinta-suave); }
+
+#etiquetas {
+  display: inline-block;
+  padding: 0.25rem 0.85rem;
+  font-family: var(--fuente-codigo);
+  font-size: 0.85rem;
+  color: var(--primario-oscuro);
+  background: #e6eaf6;
+  border-radius: 999px;
+}
+
+/* ---------- Secciones (tarjetas) ---------- */
+main { display: grid; gap: 1.25rem; }
+
+section,
+body > form {
+  background: var(--superficie);
+  border: 1px solid var(--linea);
+  border-radius: var(--radio);
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 1px 0 var(--linea);
+}
+
+section ul { margin: 0.5rem 0 1rem; padding-left: 1.25rem; }
+section li { margin-bottom: 0.4rem; }
+section li::marker { color: var(--primario); }
+
+/* Enunciado: barra lateral de color */
+#enunciado { border-left: 5px solid var(--primario); }
+
+#enunciado > p:last-child:has(strong) {
+  margin: 1rem 0 0;
+  padding: 0.75rem 1rem;
+  background: #fff8d6;
+  border-radius: var(--radio-chico);
+}
+
+/* ---------- Formularios ---------- */
+form { display: grid; gap: 0.35rem; }
+
+label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-top: 0.8rem;
+}
+form > label:first-child { margin-top: 0; }
+
+input,
+textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  font: inherit;
+  color: var(--tinta);
+  background: var(--papel);
+  border: 1.5px solid var(--linea);
+  border-radius: var(--radio-chico);
+  transition: border-color 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+textarea {
+  font-family: var(--fuente-codigo);
+  font-size: 0.95rem;
+  resize: vertical;
+  min-height: 5.5rem;
+}
+
+input::placeholder,
+textarea::placeholder { color: #98a2b8; }
+
+input:hover,
+textarea:hover { border-color: #aab5cc; }
+
+input:focus,
+textarea:focus {
+  outline: none;
+  background: var(--superficie);
+  border-color: var(--primario);
+  box-shadow: 0 0 0 4px rgba(59, 76, 202, 0.15);
+}
+
+button {
+  justify-self: start;
+  margin-top: 1.1rem;
+  padding: 0.75rem 1.6rem;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primario);
+  border: none;
+  border-radius: var(--radio-chico);
+  box-shadow: 0 3px 0 var(--primario-oscuro);
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+}
+
+button:hover { background: #4658dd; }
+
+button:active {
+  transform: translateY(3px);
+  box-shadow: 0 0 0 var(--primario-oscuro);
+}
+
+/* ---------- Resultados: panel tipo consola ---------- */
+#resultado {
+  background: var(--consola);
+  border-color: var(--consola);
+  color: #e8ecf8;
+  box-shadow: 0 10px 30px -12px rgba(22, 29, 51, 0.55);
+}
+
+#resultado h2 { color: #fff; }
+
+#resultado p { margin-bottom: 0.5rem; max-width: none; }
+
+#resultado strong {
+  font-family: var(--fuente-codigo);
+  font-weight: 500;
+  color: var(--resalte);
+  margin-left: 0.25rem;
+}
+
+#mensaje {
+  padding: 0.7rem 1rem;
+  margin-bottom: 1rem !important;
+  color: #c4cce6;
+  background: rgba(255, 255, 255, 0.06);
+  border-left: 4px solid var(--resalte);
+  border-radius: 0 var(--radio-chico) var(--radio-chico) 0;
+}
+
+/* Si tu JS agrega estas clases al mensaje, cambian de color */
+#mensaje.ok,
+#mensaje.exito { border-left-color: var(--ok); color: var(--ok); }
+#mensaje.error { border-left-color: var(--error); color: var(--error); }
+
+/* Listas de detalle dentro de los resultados */
+#resultado ul {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+#resultado li {
+  margin: 0;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.97rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--consola-linea);
+  border-radius: var(--radio-chico);
+}
+
+#resultado ul:empty { display: none; }
+
+/* ---------- Página de ejemplos (formularios sueltos) ---------- */
+body > h1 { margin-bottom: 1.75rem; }
+
+body > form { margin-bottom: 0.75rem; }
+
+body > ul,
+body > p {
+  margin: 0 0 2rem;
+  padding: 0.9rem 1.25rem;
+  background: var(--superficie);
+  border: 1px dashed #aab5cc;
+  border-radius: var(--radio-chico);
+}
+
+body > ul { list-style: none; display: grid; gap: 0.25rem; }
+body > ul:empty,
+body > p:empty { display: none; }
+
+body > ul li { font-family: var(--fuente-codigo); font-size: 0.95rem; }
+
+/* ---------- Índice ---------- */
+#seccionEjemplos h2,
+#seccionTaller h2,
+#seccionReto h2 { margin-bottom: 0.9rem; }
+
+#seccionTaller ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+#seccionTaller li { margin: 0; }
+
+#seccionEjemplos p { margin: 0; }
+
+#seccionEjemplos a,
+#seccionTaller a,
+#seccionReto a {
+  display: block;
+  padding: 0.8rem 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--tinta);
+  background: var(--papel);
+  border: 1.5px solid var(--linea);
+  border-radius: var(--radio-chico);
+  transition: border-color 0.15s, background 0.15s, padding-left 0.15s;
+}
+
+#seccionEjemplos a:hover,
+#seccionTaller a:hover,
+#seccionReto a:hover {
+  border-color: var(--primario);
+  background: #eef0fc;
+  padding-left: 1.3rem;
+}
+
+#seccionReto { border-left: 5px solid var(--resalte); }
+#seccionReto a { background: #fff8d6; border-color: #f0dd8a; }
+#seccionReto a:hover { background: #fff2b8; border-color: #d9bd35; }
+
+/* ---------- Móvil ---------- */
+@media (max-width: 560px) {
+  body { padding: 1.5rem 0.9rem 3rem; font-size: 1rem; }
+  section, body > form { padding: 1.2rem 1.1rem; }
+  button { width: 100%; justify-self: stretch; }
+}
+
+/* ---------- Preferencias del sistema ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+}
+
+@media print {
+  body { background: #fff; }
+  body::before { display: none; }
+  #resultado { background: #fff; color: #000; border: 1px solid #000; }
+  #resultado strong { color: #000; }
+  button { display: none; }
+}
